@@ -1,0 +1,17 @@
+672733b362dd1f4b6a1a473286bec4a2 *DESCRIPTION
+7bcff5311fdd13bca7cab59c4b935b1a *LICENSE
+1c22c6f42c38b4610d359dbc8e95fc3d *NAMESPACE
+ff137ef657e10655616d46c7ecb434f2 *NEWS.md
+d0ef1f103fd501ad45f230a1663ecd52 *R/bibentries.R
+923ab3825f33cf564916f53540d0f68f *R/ifo-package.R
+a5c05c4953b9ea066b39ec66ee48dbf5 *R/ifo.R
+b8e95252ec36b10066898f8d43f3a0a5 *R/utils.R
+897b661486ee5227850fafd9e1658518 *README.md
+fd5370163f5e441d57a440ba85d707e6 *man/figures/README-plotting-1.png
+2e9dfe23b9dbb382786a6d673a396b13 *man/ifo-package.Rd
+06da90da0b4bd274f161cbd3f4f09ebe *man/ifo_business.Rd
+427088c385993b6051d67ccf05729f0f *man/ifo_climate.Rd
+eb35a7f67b8f7eb49c396dd9d02e4b0f *man/ifo_expectation.Rd
+fb4f7a33421e73db6ec44ce8dfe4e67a *tests/testthat.R
+db15bc823553a03dd08211151cbb7e89 *tests/testthat/fixtures/ifo-time-series.html
+d6b58f7ff1ee13c91e32cb398e4b642f *tests/testthat/test-ifo.R
