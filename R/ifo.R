@@ -1,11 +1,11 @@
 #' Return ifo business climate data
 #'
-#' @param type `character(1)` Defaults to `"germany"`. One of:
+#' @param type (`character(1)`) Defaults to `"germany"`. One of:
 #'   * `"germany"`: returns the ifo business climate index for Germany.
 #'   * `"sectors"`: returns the ifo business climate index for different sectors.
 #'   * `"eastern"`: returns the ifo business climate index for eastern Germany.
 #'   * `"saxony"`: returns the ifo business climate index for Saxony.
-#' @param long_format `logical(1)` if `TRUE` return the data in long format.
+#' @param long_format (`logical(1)`) If `TRUE` return the data in long format.
 #'   Only applies to `type` `"germany"` and `"sectors"`. Default `TRUE`.
 #' @returns A `data.frame()` containing the monthly ifo business climate time series.
 #' @source <https://www.ifo.de/en/ifo-time-series>
@@ -16,18 +16,26 @@
 #' \donttest{
 #' ifo_business("germany")
 #' }
-ifo_business <- function(type = c("germany", "sectors", "eastern", "saxony"),
-                         long_format = TRUE) {
+ifo_business <- function(
+  type = c("germany", "sectors", "eastern", "saxony"),
+  long_format = TRUE
+) {
   type <- match.arg(type)
-  stopifnot(is.logical(long_format), length(long_format) == 1L)
+  stopifnot(is_bool(long_format))
   sheet <- 1L
-  switch(type,
+  switch(
+    type,
     germany = {
       col_names <- c(
         "yearmonth",
-        "climate_index", "situation_index", "expectation_index",
-        "climate_balance", "situation_balance", "expectation_balance",
-        "uncertainty", "economic_expansion"
+        "climate_index",
+        "situation_index",
+        "expectation_index",
+        "climate_balance",
+        "situation_balance",
+        "expectation_balance",
+        "uncertainty",
+        "economic_expansion"
       )
       col_types <- c("text", rep("numeric", 8L))
     },
@@ -37,7 +45,9 @@ ifo_business <- function(type = c("germany", "sectors", "eastern", "saxony"),
       col_names <- "yearmonth"
       indicator <- c("climate", "situation", "expectation")
       nms <- as.character(outer(
-        paste(indicator, "industry", sep = "_"), c("balance", "index"), paste,
+        paste(indicator, "industry", sep = "_"),
+        c("balance", "index"),
+        paste,
         sep = "_"
       ))
       col_names <- c(col_names, nms)
@@ -56,7 +66,7 @@ ifo_business <- function(type = c("germany", "sectors", "eastern", "saxony"),
     }
   )
 
-  res <- ifo_download(
+  tab <- ifo_download(
     type = type,
     sheet = sheet,
     skip = 8L,
@@ -64,27 +74,31 @@ ifo_business <- function(type = c("germany", "sectors", "eastern", "saxony"),
     col_types = col_types
   )
 
-  if (long_format) {
-    if (type == "germany") {
-      res <- res |> tidyr::pivot_longer(climate_index:expectation_balance,
-        names_to = c("indicator", "series"),
-        names_pattern = "(.*)_(.*)",
-        values_drop_na = TRUE
-      )
-    } else if (type == "sectors") {
-      res <- res |> tidyr::pivot_longer(!yearmonth,
-        names_to = c("indicator", "sector", "series"),
-        names_pattern = "(.*)_(.*)_(.*)",
-        values_drop_na = TRUE
-      )
-    }
+  if (!long_format) {
+    tab <- setDF(tab)
+    return(tab)
   }
-  res
+
+  if (type == "germany") {
+    tab <- melt(
+      tab,
+      measure.vars = measure(indicator, series, pattern = "(.*)_(index|balance)"),
+      na.rm = TRUE
+    )
+  } else if (type == "sectors") {
+    tab <- melt(
+      tab,
+      measure.vars = measure(indicator, sector, series, pattern = "(.*)_(.*)_(.*)"),
+      na.rm = TRUE
+    )
+  }
+  tab <- setDF(tab)
+  tab
 }
 
 #' Return ifo expectation data
 #'
-#' @param type `character(1)` Defaults to `"employment"`. One of:
+#' @param type (`character(1)`) Defaults to `"employment"`. One of:
 #'   * `"export"`: returns the ifo export expectations for manufacturing.
 #'   * `"employment"`: returns the ifo employment barometer for Germany.
 #' @returns A `data.frame()` containing the monthly ifo expectation time series.
@@ -97,27 +111,34 @@ ifo_business <- function(type = c("germany", "sectors", "eastern", "saxony"),
 ifo_expectation <- function(type = c("export", "employment")) {
   type <- match.arg(type)
   if (type == "export") {
-    ifo_download(
+    tab <- ifo_download(
       type = "export",
       skip = 10L,
       col_names = c("yearmonth", "expecation"),
       col_types = c("date", "numeric")
     )
   } else {
-    ifo_download(
+    tab <- ifo_download(
       type = "employment",
       skip = 9L,
       col_names = c(
-        "yearmonth", "expecation", "manufacturing", "construction", "trade", "service_sector" # nolint
+        "yearmonth",
+        "expecation",
+        "manufacturing",
+        "construction",
+        "trade",
+        "service_sector" # nolint
       ),
       col_types = c("date", rep("numeric", 5L))
     )
   }
+  tab <- setDF(tab)
+  tab
 }
 
 #' Return ifo climate data
 #'
-#' @param type `character(1)` Defaults to `"import"`. One of:
+#' @param type (`character(1)`) Defaults to `"import"`. One of:
 #'   * `"import"`: returns the ifo import climate.
 #'   * `"export"`: returns the ifo export climate.
 #'   * `"world"`: returns the ifo world economic climate.
@@ -133,29 +154,34 @@ ifo_expectation <- function(type = c("export", "employment")) {
 ifo_climate <- function(type = c("import", "export", "world", "euro")) {
   type <- match.arg(type)
   if (type == "import") {
-    ifo_download(
+    tab <- ifo_download(
       type = "import_climate",
       skip = 10L,
       col_names = c("yearmonth", "climate"),
       col_types = c("date", "numeric")
     )
   } else if (type == "export") {
-    ifo_download(
+    tab <- ifo_download(
       type = "export_climate",
       skip = 10L,
       col_names = c("yearmonth", "ifo_climate", "special_trade"),
       col_types = c("date", "numeric", "numeric")
     )
   } else {
-    ifo_download(
+    tab <- ifo_download(
       type = type,
       skip = 11L,
       col_names = c(
-        "yearmonth", "economic_climate", "present_situation", "expectation"
+        "yearmonth",
+        "economic_climate",
+        "present_situation",
+        "expectation"
       ),
       col_types = c("text", rep("numeric", 3L))
     )
   }
+  tab <- setDF(tab)
+  tab
 }
 
 ifo_download <- function(type, ...) {
@@ -163,17 +189,18 @@ ifo_download <- function(type, ...) {
   tf <- tempfile(fileext = ".xlsx")
   on.exit(unlink(tf), add = TRUE)
   curl::curl_download(url, tf)
-  res <- readxl::read_xlsx(tf, ...)
-  if (inherits(res$yearmonth, "POSIXct")) {
-    res$yearmonth <- as.Date(format(res$yearmonth, "%Y-%m-01"))
+  tab <- setDT(readxl::read_xlsx(tf, ...))
+  if (inherits(tab$yearmonth, "POSIXct")) {
+    tab[, yearmonth := as.Date(format(yearmonth, "%Y-%m-01"))]
   } else {
-    res$yearmonth <- as.Date(paste0("01/", res$yearmonth), "%d/%m/%Y") # nolint
+    tab[, yearmonth := as.Date(paste0("01/", yearmonth), "%d/%m/%Y")] # nolint
   }
-  res
+  tab
 }
 
 ifo_url <- function(type) {
-  pattern <- switch(type,
+  pattern <- switch(
+    type,
     germany = "gsk",
     sectors = "gsk",
     eastern = "ostd",
@@ -185,10 +212,16 @@ ifo_url <- function(type) {
     type
   )
   urls <- read_html("https://www.ifo.de/en/ifo-time-series") |>
-    html_elements(".link-list") |>
+    html_elements(".paragraph--linkliste") |>
     html_elements("a") |>
     html_attr("href")
+  if (length(urls) == 0L) {
+    stop("Found no timeseries urls.", call. = FALSE)
+  }
   url <- grep(pattern, urls, value = TRUE, fixed = TRUE)
+  if (length(url) == 0L) {
+    stop("No ifo data found for type: ", type, call. = FALSE)
+  }
   url <- paste0("https://www.ifo.de", url)
   url
 }

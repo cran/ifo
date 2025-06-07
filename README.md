@@ -22,7 +22,7 @@ suggestions.
 
 ## Installation
 
-You can install the released version of **ifo** from
+You can install the released version of ifo from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
@@ -42,16 +42,14 @@ pak::pak("m-muecke/ifo")
 library(ifo)
 
 climate <- ifo_business()
-climate
-#> # A tibble: 1,434 × 6
-#>   yearmonth  uncertainty economic_expansion indicator   series  value
-#>   <date>           <dbl>              <dbl> <chr>       <chr>   <dbl>
-#> 1 2005-01-01          NA               83.1 climate     index    92.2
-#> 2 2005-01-01          NA               83.1 situation   index    87.4
-#> 3 2005-01-01          NA               83.1 expectation index    97.2
-#> 4 2005-01-01          NA               83.1 climate     balance   1.5
-#> 5 2005-01-01          NA               83.1 situation   balance  -0.8
-#> # ℹ 1,429 more rows
+head(climate)
+#>    yearmonth uncertainty economic_expansion indicator series value
+#> 1 2005-01-01          NA               83.1   climate  index  92.2
+#> 2 2005-02-01          NA               50.4   climate  index  92.0
+#> 3 2005-03-01          NA                4.9   climate  index  90.1
+#> 4 2005-04-01          NA               18.7   climate  index  89.9
+#> 5 2005-05-01          NA               11.7   climate  index  89.3
+#> 6 2005-06-01          NA               32.1   climate  index  89.3
 ```
 
 <img src="man/figures/README-plotting-1.png" width="100%" />
