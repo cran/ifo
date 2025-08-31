@@ -10,6 +10,8 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![R-CMD-check](https://github.com/m-muecke/ifo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/m-muecke/ifo/actions/workflows/R-CMD-check.yaml)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/ifo)](https://CRAN.R-project.org/package=ifo)
+[![R-universe
+version](https://m-muecke.r-universe.dev/ifo/badges/version)](https://m-muecke.r-universe.dev/ifo)
 <!-- badges: end -->
 
 ## Overview
@@ -49,7 +51,7 @@ head(climate)
 #> 3 2005-03-01          NA                4.9   climate  index  90.1
 #> 4 2005-04-01          NA               18.7   climate  index  89.9
 #> 5 2005-05-01          NA               11.7   climate  index  89.3
-#> 6 2005-06-01          NA               32.1   climate  index  89.3
+#> 6 2005-06-01          NA               32.1   climate  index  89.4
 ```
 
 <img src="man/figures/README-plotting-1.png" width="100%" />

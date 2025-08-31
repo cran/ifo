@@ -1,3 +1,7 @@
+# ifo 0.2.2
+
+* Documentation improvements.
+
 # ifo 0.2.1
 
 * Adjust to new ifo website urls.

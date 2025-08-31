@@ -7,7 +7,8 @@
 ifo_climate(type = c("import", "export", "world", "euro"))
 }
 \arguments{
-\item{type}{(\code{character(1)}) Defaults to \code{"import"}. One of:
+\item{type}{(\code{character(1)})\cr
+Defaults to \code{"import"}. One of:
 \itemize{
 \item \code{"import"}: returns the ifo import climate.
 \item \code{"export"}: returns the ifo export climate.
@@ -22,9 +23,11 @@ A \code{data.frame()} containing the monthly ifo climate time series.
 Return ifo climate data
 }
 \examples{
+\dontshow{if (curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 ifo_climate("import")
 }
+\dontshow{\}) # examplesIf}
 }
 \references{
 Grimme C, Lehmann R, Nöller M (2018).

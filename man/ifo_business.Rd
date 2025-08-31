@@ -13,7 +13,8 @@ ifo_business(
 )
 }
 \arguments{
-\item{type}{(\code{character(1)}) Defaults to \code{"germany"}. One of:
+\item{type}{(\code{character(1)})\cr
+Defaults to \code{"germany"}. One of:
 \itemize{
 \item \code{"germany"}: returns the ifo business climate index for Germany.
 \item \code{"sectors"}: returns the ifo business climate index for different sectors.
@@ -21,8 +22,9 @@ ifo_business(
 \item \code{"saxony"}: returns the ifo business climate index for Saxony.
 }}
 
-\item{long_format}{(\code{logical(1)}) If \code{TRUE} return the data in long format.
-Only applies to \code{type} \code{"germany"} and \code{"sectors"}. Default \code{TRUE}.}
+\item{long_format}{(\code{logical(1)})\cr
+If \code{TRUE} return the data in long format. Only applies to \code{type} \code{"germany"} and \code{"sectors"}.
+Default \code{TRUE}.}
 }
 \value{
 A \code{data.frame()} containing the monthly ifo business climate time series.
@@ -31,9 +33,11 @@ A \code{data.frame()} containing the monthly ifo business climate time series.
 Return ifo business climate data
 }
 \examples{
+\dontshow{if (curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 ifo_business("germany")
 }
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 The \href{https://m-muecke.github.io/ifo/articles/publication.html}{article} for
