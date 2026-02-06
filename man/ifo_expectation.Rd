@@ -11,7 +11,7 @@ ifo_expectation(type = c("export", "employment"))
 }
 \arguments{
 \item{type}{(\code{character(1)})\cr
-Defaults to \code{"employment"}. One of:
+Defaults to \code{"export"}. One of:
 \itemize{
 \item \code{"export"}: returns the ifo export expectations for manufacturing.
 \item \code{"employment"}: returns the ifo employment barometer for Germany.
@@ -24,7 +24,7 @@ A \code{data.frame()} containing the monthly ifo expectation time series.
 Return ifo expectation data
 }
 \examples{
-\dontshow{if (curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (curl::has_internet()) withAutoprint(\{ # examplesIf}
 \donttest{
 ifo_expectation("export")
 }

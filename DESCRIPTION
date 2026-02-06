@@ -1,6 +1,6 @@
 Package: ifo
 Title: Client for the Ifo Institute Time Series
-Version: 0.2.2
+Version: 0.2.3
 Authors@R: 
     person("Maximilian", "Mücke", , "muecke.maximilian@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0000-9432-9795"))
@@ -15,11 +15,11 @@ Suggests: ggplot2, knitr, testthat (>= 3.2.0)
 Config/Needs/website: knitr, rmarkdown
 Config/testthat/edition: 3
 Encoding: UTF-8
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 NeedsCompilation: no
-Packaged: 2025-08-31 18:51:57 UTC; mmuecke
+Packaged: 2026-02-06 17:06:54 UTC; mmuecke
 Author: Maximilian Mücke [aut, cre] (ORCID:
     <https://orcid.org/0009-0000-9432-9795>)
 Maintainer: Maximilian Mücke <muecke.maximilian@gmail.com>
 Repository: CRAN
-Date/Publication: 2025-08-31 19:00:10 UTC
+Date/Publication: 2026-02-06 17:20:09 UTC
