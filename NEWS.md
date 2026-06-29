@@ -1,3 +1,7 @@
+# ifo 0.2.4
+
+* Clearer error when the ifo website returns multiple urls for a single type.
+
 # ifo 0.2.3
 
 * `ifo_expectation()` now returns column `expectation` instead of the

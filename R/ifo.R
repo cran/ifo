@@ -149,6 +149,7 @@ ifo_expectation <- function(type = c("export", "employment")) {
 #'   * `"world"`: returns the ifo world economic climate.
 #'   * `"euro"`: returns the ifo world economic climate for the euro zone.
 #' @returns A `data.frame()` containing the monthly ifo climate time series.
+#' @inherit ifo_business source
 #' @references
 #' `r format_bib("grimme2018ifo", "grimme2021forecasting")`
 #' @export
@@ -221,6 +222,9 @@ ifo_url <- function(type) {
   url <- grep(pattern, urls, value = TRUE, fixed = TRUE)
   if (length(url) == 0L) {
     stop("No ifo data found for type: ", type, call. = FALSE)
+  }
+  if (length(url) > 1L) {
+    stop("Found multiple ifo data urls for type: ", type, call. = FALSE)
   }
   paste0("https://www.ifo.de", url)
 }
