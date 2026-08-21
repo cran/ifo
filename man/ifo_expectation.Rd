@@ -23,10 +23,15 @@ A \code{data.frame()} containing the monthly ifo expectation time series.
 \description{
 Return ifo expectation data
 }
+\details{
+For \code{type = "employment"}, \code{expectation} contains the employment barometer, an index with
+2015 = 100. \code{manufacturing}, \code{construction}, \code{trade}, and \code{service_sector} contain balances.
+}
 \examples{
 \dontshow{if (curl::has_internet()) withAutoprint(\{ # examplesIf}
 \donttest{
-ifo_expectation("export")
+expectation <- ifo_expectation("export")
+head(expectation)
 }
 \dontshow{\}) # examplesIf}
 }

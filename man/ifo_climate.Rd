@@ -20,15 +20,22 @@ Defaults to \code{"import"}. One of:
 }}
 }
 \value{
-A \code{data.frame()} containing the monthly ifo climate time series.
+A \code{data.frame()} containing the ifo climate time series. Monthly for \code{"import"} and
+\code{"export"}, quarterly for \code{"world"} and \code{"euro"}.
 }
 \description{
 Return ifo climate data
 }
+\details{
+\code{type = "import"} and \code{type = "export"} return seasonally adjusted indices. In the export data,
+\code{special_trade} instead gives the annual percentage change in special-trade exports.
+\code{type = "world"} and \code{type = "euro"} return balances.
+}
 \examples{
 \dontshow{if (curl::has_internet()) withAutoprint(\{ # examplesIf}
 \donttest{
-ifo_climate("import")
+climate <- ifo_climate("import")
+head(climate)
 }
 \dontshow{\}) # examplesIf}
 }
