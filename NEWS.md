@@ -1,3 +1,16 @@
+# ifo 0.3.0
+
+## Breaking changes
+
+* `ifo_business()` sorts the long format output by `yearmonth`. Previously rows were grouped by indicator and series.
+* `ifo_climate("export")` names the climate column `climate` instead of `ifo_climate`, matching `ifo_climate("import")`.
+
+## New features and bug fixes
+
+* `ifo_expectation("employment")` finds the current employment workbook after ifo changed its filename.
+* `ifo_expectation()` no longer returns rows without observations.
+* New `ifo_vintage()` returns the real-time vintages of the ifo business climate for Germany and its sectors.
+
 # ifo 0.2.5
 
 * Trailing undated rows used for workbook footnotes are no longer returned.
