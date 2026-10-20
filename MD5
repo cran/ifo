@@ -1,14 +1,14 @@
-d357c2a06e97efc388e418f0270cb20e *DESCRIPTION
+d0a639a70978c33be8ac941ffb675794 *DESCRIPTION
 7bcff5311fdd13bca7cab59c4b935b1a *LICENSE
 c8c7f004ace401a1bab8114efc071382 *NAMESPACE
-db6d6a5e1454811a97dfd3e48136c747 *NEWS.md
+c890a8a52ce90760d44e7b9402163197 *NEWS.md
 058323d419109261b87de488d74df967 *R/assertions.R
 0856f7fecb375c2ed663f51c2c66674b *R/bibentries.R
 4b39458872bcf5de35d8792ddb8e20d3 *R/ifo-package.R
-8c5ccab47042c9ace4a6bf78ff3fe4fa *R/ifo.R
+492d449bdcf1fb23f86b44aabae290c8 *R/ifo.R
 83e8cb68b9754395e6809f81914e9634 *R/utils.R
 2dbcf2c067b3fb4dfc8918264d74c7bd *README.md
-fc2d374358ee1eeb9fb8df76d584a43b *man/figures/README-plotting-1.png
+cf417111cb588bbecd5bac3cb129599a *man/figures/README-plotting-1.png
 55327a201a9652f22a55c296ab846f17 *man/ifo-package.Rd
 1862b428172e716f52af4d1bded8944e *man/ifo_business.Rd
 6f90471bfd6b2e55f0678aca810f62f5 *man/ifo_climate.Rd
@@ -16,4 +16,4 @@ ce3bb048adcc9f51340ea274ad61088c *man/ifo_expectation.Rd
 8bef398ccf7bb55b6af356e31537dcf5 *man/ifo_vintage.Rd
 fb4f7a33421e73db6ec44ce8dfe4e67a *tests/testthat.R
 d14c760619a6281f6fe1599d13373a26 *tests/testthat/fixtures/ifo-time-series.html
-1956753691ef988543e64f9eafb39b16 *tests/testthat/test-ifo.R
+a0deb074c4cc006ea2c33634551381e8 *tests/testthat/test-ifo.R

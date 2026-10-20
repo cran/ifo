@@ -57,24 +57,14 @@ ifo_business <- function(
     },
     sectors = {
       sheet <- 2L
-      col_types <- c("text", rep("numeric", 24L))
-      col_names <- "yearmonth"
       indicator <- c("climate", "situation", "expectation")
-      nms <- as.character(outer(
-        paste(indicator, "industry", sep = "_"),
-        c("index", "balance"),
-        paste,
-        sep = "_"
-      ))
-      col_names <- c(col_names, nms)
-      nms <- as.character(outer(
-        indicator,
-        c("manufacturing", "services", "trade", "wholesale", "retail", "construction"),
-        paste,
-        sep = "_"
-      ))
-      nms <- paste0(nms, "_balance")
-      col_names <- c(col_names, nms)
+      sectors <- c("manufacturing", "services", "trade", "wholesale", "retail", "construction")
+      col_names <- c(
+        "yearmonth",
+        outer(indicator, c("industry_index", "industry_balance"), paste, sep = "_"),
+        outer(indicator, paste0(sectors, "_balance"), paste, sep = "_")
+      )
+      col_types <- c("text", rep("numeric", length(col_names) - 1L))
     },
     {
       col_names <- c("yearmonth", "climate", "situation", "expectation")
@@ -135,27 +125,23 @@ ifo_business <- function(
 #' }
 ifo_expectation <- function(type = c("export", "employment")) {
   type <- match.arg(type)
-  tab <- switch(
+  col_names <- switch(
     type,
-    export = ifo_download(
-      type = "export",
-      skip = 9L,
-      col_names = c("yearmonth", "expectation"),
-      col_types = c("date", "numeric")
-    ),
-    employment = ifo_download(
-      type = "employment",
-      skip = 9L,
-      col_names = c(
-        "yearmonth",
-        "expectation",
-        "manufacturing",
-        "construction",
-        "trade",
-        "service_sector"
-      ),
-      col_types = c("date", rep("numeric", 5L))
+    export = c("yearmonth", "expectation"),
+    employment = c(
+      "yearmonth",
+      "expectation",
+      "manufacturing",
+      "construction",
+      "trade",
+      "service_sector"
     )
+  )
+  tab <- ifo_download(
+    type = type,
+    skip = 9L,
+    col_names = col_names,
+    col_types = c("date", rep("numeric", length(col_names) - 1L))
   )
   has_value <- tab[, rowSums(!is.na(.SD)) > 0L, .SDcols = !"yearmonth"]
   tab <- tab[has_value]
@@ -264,6 +250,8 @@ ifo_vintage <- function(
   sheets <- c(climate = "Climate", situation = "Situation", expectation = "Expectations")
   tab <- rbindlist(
     lapply(sheets, \(sheet) setDT(readxl::read_xlsx(path, sheet = sheet))),
+    use.names = TRUE,
+    fill = TRUE,
     idcol = "indicator"
   )
   setnames(tab, "Date", "yearmonth")
@@ -323,12 +311,12 @@ parse_monthname <- function(x) {
 ifo_url <- function(type) {
   pattern <- switch(
     type,
-    germany = "gsk",
+    germany = ,
     sectors = "gsk",
     eastern = "ostd",
     saxony = "sachsen",
     export = "export",
-    employment = "beschbaro",
+    employment = "ifo Employment Barometer",
     export_climate = "exklima",
     import_climate = "imklima",
     vintage_germany = "vintage/Germany-",
@@ -341,15 +329,16 @@ ifo_url <- function(type) {
     vintage_construction = "vintage/Construction-",
     type
   )
-  urls <- read_html("https://www.ifo.de/en/ifo-time-series") |>
+  links <- read_html("https://www.ifo.de/en/ifo-time-series") |>
     html_elements(".paragraph--linkliste") |>
-    html_elements("a") |>
-    html_attr("href")
+    html_elements("a")
+  urls <- html_attr(links, "href")
+  titles <- html_attr(links, "title")
 
   if (length(urls) == 0L) {
     stop("Found no timeseries urls.", call. = FALSE)
   }
-  url <- grep(pattern, urls, value = TRUE, fixed = TRUE)
+  url <- urls[grepl(pattern, paste(urls, titles), fixed = TRUE)]
   if (length(url) == 0L) {
     stop("No ifo data found for type: ", type, call. = FALSE)
   }
