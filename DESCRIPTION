@@ -1,6 +1,6 @@
 Package: ifo
 Title: Client for the Ifo Institute Time Series
-Version: 0.3.1
+Version: 0.3.2
 Authors@R: 
     person("Maximilian", "Mücke", , "muecke.maximilian@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0000-9432-9795"))
@@ -10,17 +10,18 @@ License: MIT + file LICENSE
 URL: https://m-muecke.github.io/ifo/, https://github.com/m-muecke/ifo
 BugReports: https://github.com/m-muecke/ifo/issues
 Depends: R (>= 4.1.0)
-Imports: curl, data.table (>= 1.16.0), readxl, rvest (>= 1.0.0)
-Suggests: ggplot2, knitr, testthat (>= 3.3.0)
+Imports: curl, data.table (>= 1.16.0), readxl (>= 1.0.0), rvest (>=
+        1.0.0)
+Suggests: ggplot2 (>= 3.4.0), knitr, testthat (>= 3.3.0)
 Config/Needs/website: bbk, knitr, lmtest, rmarkdown
 Config/roxygen2/markdown: TRUE
 Config/roxygen2/version: 8.1.1
 Config/testthat/edition: 3
 Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2026-10-20 21:47:25 UTC; mmuecke
+Packaged: 2026-11-17 08:55:43 UTC; mmuecke
 Author: Maximilian Mücke [aut, cre] (ORCID:
     <https://orcid.org/0009-0000-9432-9795>)
 Maintainer: Maximilian Mücke <muecke.maximilian@gmail.com>
 Repository: CRAN
-Date/Publication: 2026-10-20 22:00:02 UTC
+Date/Publication: 2026-11-17 09:30:02 UTC
